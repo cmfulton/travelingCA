@@ -1,3 +1,7 @@
 .DS_Store
 .idea/*
 __pycache__
+mcmc_map_results/*
+mcmc_sa_map_results/*
+*.html
+result.csv

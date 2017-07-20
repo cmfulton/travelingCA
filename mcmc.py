@@ -144,7 +144,9 @@ def print_results(route, folder_name, verbose=False):
     gmap.plot(lats, lons, 'cornflowerblue', edge_width=10)
     if not os.path.exists(folder_name):
         os.mkdir(folder_name)
-    gmap.draw("{0}\distance-{1}.html".format(folder_name, int(dist)))
+
+    src = os.path.join(folder_name, "distance-{0}.html".format(int(dist)))
+    gmap.draw(src)
     return dist
 
 
@@ -176,7 +178,7 @@ def MCMC_SA(cities, MAX_ITER=10000, c=70):
 
     return best
 
-
+#
 def run_mcmc(runs=10):
     cities = get_cities()
 
@@ -196,7 +198,7 @@ def run_mcmc(runs=10):
 
     print("\n")
     print("MCMC shortest distance is: {0} km".format(int(min_dist)))
-    shutil.copyfile("{0}\distance-{1}.html".format(map_folder, int(min_dist)),
+    shutil.copyfile(os.path.join(map_folder, "distance-{0}.html".format(int(min_dist))),
                     "mcmc-shortest-distance-{0}.html".format(int(min_dist)))
 
 
@@ -219,16 +221,16 @@ def run_mcmc_sa(runs=10):
 
     print("\n")
     print("MCMC_SA shortest distance is: {0} km".format(int(min_dist)))
-    shutil.copyfile("{0}\distance-{1}.html".format(map_folder, int(min_dist)),
+    shutil.copyfile(os.path.join(map_folder, "distance-{0}.html".format(int(min_dist))),
                     "mcmc-sa-shortest-distance-{0}.html".format(int(min_dist)))
 
 # time how long each MCMC algorithm takes to run through its iterations
 start1 = timeit.default_timer()
-run_mcmc(20)
+run_mcmc(2)
 stop1 = timeit.default_timer()
 
 start2 = timeit.default_timer()
-run_mcmc_sa(20)
+run_mcmc_sa(2)
 stop2 = timeit.default_timer()
 
 print("\nMCMC took ", (stop1 - start1), " seconds")
